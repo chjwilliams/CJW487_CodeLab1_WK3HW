@@ -12,6 +12,8 @@ using UnityEngine;
 /*					private:															*/
 /*						void Start ()													*/
 /*						void Move (KeyCode key)											*/
+/*						void CheckBoundary ()											*/
+/*						void OnCollisionEnter2D (Collider2D other)						*/
 /*						void Update ()													*/
 /*																						*/
 /*--------------------------------------------------------------------------------------*/
@@ -19,11 +21,11 @@ public class PlayerController : MonoBehaviour
 {
 
 	//	Public variables
-	public float moveSpeed = 5.0f;
-	public KeyCode upKey = KeyCode.W;
-	public KeyCode downKey = KeyCode.S;
-	public KeyCode rightKey = KeyCode.D;
-	public KeyCode leftKey = KeyCode.A;
+	public float moveSpeed = 5.0f;				//	How fast the player moves
+	public KeyCode upKey = KeyCode.W;			//	Input for moving up
+	public KeyCode downKey = KeyCode.S;			//	Input for moving down
+	public KeyCode rightKey = KeyCode.D;		//	Input for moving right
+	public KeyCode leftKey = KeyCode.A;			//	Input for moving left
 
     /*--------------------------------------------------------------------------------------*/
     /*																						*/
@@ -59,6 +61,40 @@ public class PlayerController : MonoBehaviour
 		else if (Input.GetKey(leftKey))
 		{
 			transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+		}
+
+		CheckBoundary();
+	}
+
+	void CheckBoundary()
+	{
+		Vector3 newPosition = transform.position;
+		if (transform.position.y > GameManager.instance.boundaries[0].transform.position.y)
+		{
+			newPosition = new Vector3( transform.position.x, GameManager.instance.boundaries[0].transform.position.y, transform.position.z);
+		}
+		else if (transform.position.y < GameManager.instance.boundaries[2].transform.position.y)
+		{
+			newPosition = new Vector3( transform.position.x, GameManager.instance.boundaries[2].transform.position.y, transform.position.z);
+		}
+
+		if (transform.position.x > GameManager.instance.boundaries[1].transform.position.x)
+		{
+			newPosition = new Vector3(GameManager.instance.boundaries[1].transform.position.x, transform.position.y ,transform.position.z);
+		}
+		else if (transform.position.x < GameManager.instance.boundaries[3].transform.position.x)
+		{
+			newPosition = new Vector3(GameManager.instance.boundaries[3].transform.position.x, transform.position.y ,transform.position.z);
+		}
+
+		transform.position = newPosition;
+	}
+
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if (other.gameObject.name.Contains("Boundary"))
+		{
+			moveSpeed = -moveSpeed;
 		}
 	}
 	

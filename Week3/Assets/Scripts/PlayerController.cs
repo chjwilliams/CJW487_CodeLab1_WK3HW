@@ -102,18 +102,18 @@ public class PlayerController : MonoBehaviour
 	private void CheckBoundary()
 	{
 		Vector3 newPosition = transform.position;
-		if (transform.position.y > GameManager.instance.boundaries[0].transform.position.y)
+		if (transform.position.y > GameManager.instance.boundaries[1].transform.position.y)
 		{
-			newPosition = new Vector3( transform.position.x, GameManager.instance.boundaries[0].transform.position.y, transform.position.z);
+			newPosition = new Vector3( transform.position.x, GameManager.instance.boundaries[1].transform.position.y, transform.position.z);
 		}
 		else if (transform.position.y < GameManager.instance.boundaries[2].transform.position.y)
 		{
 			newPosition = new Vector3( transform.position.x, GameManager.instance.boundaries[2].transform.position.y, transform.position.z);
 		}
 
-		if (transform.position.x > GameManager.instance.boundaries[1].transform.position.x)
+		if (transform.position.x > GameManager.instance.boundaries[0].transform.position.x)
 		{
-			newPosition = new Vector3(GameManager.instance.boundaries[1].transform.position.x, transform.position.y ,transform.position.z);
+			newPosition = new Vector3(GameManager.instance.boundaries[0].transform.position.x, transform.position.y ,transform.position.z);
 		}
 		else if (transform.position.x < GameManager.instance.boundaries[3].transform.position.x)
 		{

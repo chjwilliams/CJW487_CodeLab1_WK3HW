@@ -38,17 +38,14 @@ public class GameManager : MonoBehaviour
 		if (instance == null)
 		{
 			instance = this;
-			DoNotDestroyOnLoad(this);
+			DontDestroyOnLoad(this);
 		}
 		else
 		{
 			Destroy(this.gameObject);
 		}
 
-		//	Reference to player for GameManager
-		player = GameObject.Find("Player1").GetComponent<PlayerController>();
-		//	Reference to danger square for GameManager
-		dangerSquare = GameObject.Find("DangerSquare").GetComponent<DangerSquare>();
+		boundaries = GameObject.FindGameObjectsWithTag("Boundary");
 		
 	}
     /*--------------------------------------------------------------------------------------*/
@@ -58,6 +55,18 @@ public class GameManager : MonoBehaviour
     /*--------------------------------------------------------------------------------------*/
 	private void Update () 
 	{
+		if (player == null)
+		{
+			//	Reference to player for GameManager
+			player = GameObject.Find("Player1").GetComponent<PlayerController>();
+		}
+
+		if (dangerSquare == null)
+		{
+			//	Reference to danger square for GameManager
+			dangerSquare = GameObject.Find("DangerSquare").GetComponent<DangerSquare>();
+		}
+
 		//	Restarts level if health is 0
 		if(player.Health == 0)
 		{

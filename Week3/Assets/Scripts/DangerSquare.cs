@@ -71,13 +71,13 @@ public class DangerSquare : MonoBehaviour
     /*--------------------------------------------------------------------------------------*/
 	private void Move()
 	{
-		if (transform.position.y + radius > GameManager.instance.boundaries[0].transform.position.y - radius || 
+		if (transform.position.y + radius > GameManager.instance.boundaries[1].transform.position.y - radius || 
 			transform.position.y - radius < GameManager.instance.boundaries[2].transform.position.y + radius)
 		{
 			moveSpeedY = moveSpeedY * -1 * speedIncrement;			
 		}
 
-		if (transform.position.x + radius > GameManager.instance.boundaries[1].transform.position.x - radius || 
+		if (transform.position.x + radius > GameManager.instance.boundaries[0].transform.position.x - radius || 
 			transform.position.x - radius < GameManager.instance.boundaries[3].transform.position.x + radius)
 		{
 			moveSpeedX = moveSpeedX * -1 * speedIncrement;
